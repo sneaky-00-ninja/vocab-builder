@@ -1,0 +1,28 @@
+
+created lesson and tested it showing up with the following code: 
+
+>>> Lesson.query.all()
+[]
+>>> lesson = Lesson(title="Greetins", description="Common greetings and courtesies.")
+>>> db.session.add(lesson)
+>>> db.session.commit()
+>>> Lesson.query.all()
+[<Lesson 1>]
+>>>
+
+
+
+
+ alternativly showed the deleted item instead of... 
+    return "That lesson has now been deleted"
+
+    # Endpoint for deleting a record
+@app.route("/lesson/<id>", methods=["DELETE"])
+def lesson_delete(id):
+    lesson = Lesson.query.get(id)
+    db.session.delete(lesson)
+    db.session.commit()
+
+return lesson_schema.jsonify(lesson)
+
+
