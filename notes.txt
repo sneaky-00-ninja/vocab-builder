@@ -26,3 +26,16 @@ def lesson_delete(id):
 return lesson_schema.jsonify(lesson)
 
 
+
+
+NOTE: As of November 2022, you will need to use Flask's application context provider to instantiate your SQL database as you see 
+toward the end of the lesson (either SQLite like in this lesson or other SQL formats when you are building and deploying projects). 
+The most direct way to do this is to use the "with" keyword in a Python REPL in conjunction with the context provider 
+(be sure to indent last line and press enter more than once if needed to get code to execute):
+    >>> from app import db
+    >>> from app import app
+    >>> with app.app_context():
+    ...    db.create_all()
+
+
+
