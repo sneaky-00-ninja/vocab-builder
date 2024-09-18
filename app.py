@@ -2,11 +2,18 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
-
+from flask_cors import CORS
 
 app = Flask(__name__)
 
+CORS(app)
+
+
+
 @app.route('/')
+# def home():
+#     return jsonify(message="CORS is working!")
+
 def hello():
     return "Hey Flasky McFlaskface!"
 
@@ -64,6 +71,8 @@ def get_lesson_listb():
 @app.route("/lesson/<id>", methods=["GET"])
 def get_lesson(id):
     lesson = Lesson.query.get(id)
+    if lesson is None:
+        return jsonify({"message": "Lesson not found"}), 404 
     return lesson_schema.jsonify(lesson)
 
 
