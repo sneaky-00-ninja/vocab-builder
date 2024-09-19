@@ -60,7 +60,7 @@ def add_lesson():
 
     # endpoint to query all lessons...
 @app.route('/lesson_list', methods=["GET"])
-def get_lesson_listb():
+def get_lesson_list():
     lesson_list = Lesson.query.all()
     result = lesson_list_schema.dump(lesson_list)
     return jsonify(result)
@@ -194,6 +194,118 @@ def vocab_delete(id):
     db.session.commit()
 
     return "That VOCAB entry has been DELETED"
+
+
+
+
+
+
+
+
+
+    # USERS... 
+class Users(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_type = db.Column(db.String(10), unique=False)
+    user_name = db.Column(db.String(15), unique=False)
+    user_password = db.Column(db.String(15), unique=False)
+
+    def __init__(self, user_type, user_name, user_password ):
+        self.user_type = user_type
+        self.user_name = user_name
+        self.user_password = user_password
+
+class UsersSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'user_type', 'user_name', 'user_password' )
+
+users_schema = UsersSchema()
+users_list_schema = UsersSchema(many=True)
+
+
+    # endpoint to creating new user... 
+@app.route('/user', methods=["POST"])
+def add_user():
+    user_type = request.json['user_type']
+    user_name = request.json['user_name']
+    user_password = request.json['user_password']
+
+    new_user = Users(user_type, user_name, user_password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    tester = Users.query.get(new_user.id)
+
+    return users_schema.jsonify(tester)
+
+
+
+# ***--------.--------.-----------....
+
+
+    # endpoint to query all users...
+@app.route('/user_list', methods=["GET"])
+def get_user_list():
+    user_list = Users.query.all()
+    result = users_list_schema.dump(user_list)
+    return jsonify(result)
+
+# ***--------.--------.-----------....
+
+
+
+    # Endpoint for querying a single user
+@app.route("/user/<id>", methods=["GET"])
+def get_user(id):
+    user = Users.query.get(id)
+    if user is None:
+        return jsonify({"message": "user not found"}), 404 
+    return users_schema.jsonify(user)
+
+# ***--------.--------.-----------....
+
+
+    # Endpoint for updating a user
+@app.route("/user/<id>", methods=["PUT"])
+def user_update(id):
+    user = Users.query.get(id)
+    user_type = request.json['user_type']
+    user_name = request.json['user_name']
+    user_password = request.json['user_password']
+
+    user.user_type = user_type
+    user.user_name = user_name
+    user.user_password = user_password
+
+    db.session.commit()
+    return users_schema.jsonify(user)
+
+# ***--------.--------.-----------....
+
+
+    # Endpoint for deleting a user
+@app.route("/user/<id>", methods=["DELETE"])
+def user_delete(id):
+    user = Users.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+
+    return "That user has now been DELETED"
+
+
+
+# ***--------.--------.-----------....
+# ***--------.--------.-----------....
+# ***--------.--------.-----------....
+
+
+
+
+
+
+
 
 
 
