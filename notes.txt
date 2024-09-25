@@ -39,3 +39,43 @@ The most direct way to do this is to use the "with" keyword in a Python REPL in 
 
 
 
+
+   *** here are the users in my Users table, just after creation ***
+    {[
+    {
+        "id": 1,
+        "user_name": "admin1001",
+        "user_password": "greenjelly",
+        "user_type": "admin"
+    },
+    {
+        "id": 2,
+        "user_name": "admin1002",
+        "user_password": "baconfork",
+        "user_type": "admin"
+    },
+    {
+        "id": 3,
+        "user_name": "user03",
+        "user_password": "blackhorse",
+        "user_type": "member"
+    },
+    {
+        "id": 4,
+        "user_name": "user04",
+        "user_password": "treefrog",
+        "user_type": "member"
+    },
+    {
+        "id": 5,
+        "user_name": "test44",
+        "user_password": "testingtesting",
+        "user_type": "test"
+    },
+    {
+        "id": 6,
+        "user_name": "test45",
+        "user_password": "testing45",
+        "user_type": "test"
+    }
+]
