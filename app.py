@@ -15,7 +15,7 @@ CORS(app)
 #     return jsonify(message="CORS is working!")
 
 def hello():
-    return "Hey Flasky McFlaskface!"
+    return "Vocab Boost back end now active."
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
